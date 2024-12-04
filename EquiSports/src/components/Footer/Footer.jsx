@@ -19,6 +19,9 @@ const Footer = () => {
                     <br />
                     Elevating Sports Experiences Worldwide
                 </p>
+                <div className="mt-6 text-center text-sm">
+                    <p>© 2024 EquiSports. All rights reserved.</p>
+                </div>
             </aside>
             <nav>
                 <h6 className="footer-title">Sports</h6>
@@ -41,6 +44,7 @@ const Footer = () => {
                 <a className="link link-hover">Twitter</a>
                 <a className="link link-hover">YouTube</a>
             </nav>
+            
         </footer>
 
     );

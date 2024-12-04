@@ -1,38 +1,64 @@
 import React, { useContext, useState } from "react";
-
-import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
-
+import { useNavigate } from "react-router-dom"; 
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 import { AuthContext } from "../../providers/Authprovider";
-import { auth } from "../../firebase/firebase.init";
 
 const SignIn = () => {
-  const { setLoading } = useContext(AuthContext); 
+  const { signIn, signInWithGoogle, setLoading } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-
-  const googleProvider = new GoogleAuthProvider();
+  const navigate = useNavigate(); 
 
   const handleSignIn = async (e) => {
     e.preventDefault();
+    setError(null);
     try {
       setLoading(true);
-      const result = await signInWithEmailAndPassword(auth, email, password);
-      console.log("Signed in user:", result.user);
+      await signIn(email, password); 
+      console.log("User signed in successfully!");
+
+      
+      Swal.fire({
+        title: "Login Successful!",
+        text: "You have successfully logged in.",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {
+        navigate("/"); 
+      });
     } catch (err) {
       setError(err.message);
+      
+      
+      toast.error("Incorrect email or password. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleGoogleSignIn = async () => {
+    setError(null);
     try {
       setLoading(true);
-      const result = await signInWithPopup(auth, googleProvider);
-      console.log("Google signed in user:", result.user);
+      await signInWithGoogle(); 
+      console.log("Google sign-in successful!");
+
+      
+      Swal.fire({
+        title: "Login Successful!",
+        text: "You have successfully logged in with Google.",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {
+        navigate("/"); 
+      });
     } catch (err) {
       setError(err.message);
+
+      
+      toast.error("Something went wrong with Google sign-in. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -82,7 +108,7 @@ const SignIn = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Sign in</button>
+              <button className="btn btn-primary" type="submit">Sign in</button>
             </div>
             <div className="divider">OR</div>
             <div className="form-control">
@@ -92,9 +118,9 @@ const SignIn = () => {
                 className="btn btn-outline btn-neutral flex items-center justify-center"
               >
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+                  src="https://i.postimg.cc/7PGLpgV5/download.png"
                   alt="Google"
-                  className="w-6 h-6 mr-2"
+                  className="w-8 h-8 rounded-full bg-black"
                 />
                 Sign in with Google
               </button>

@@ -1,7 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../providers/Authprovider";
+
 
 const Navbar = () => {
+    const { user, logout } = useContext(AuthContext);
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            console.log("Logged out successfully");
+        } catch (err) {
+            console.error("Logout failed:", err);
+        }
+    };
+
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -17,21 +30,22 @@ const Navbar = () => {
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                                 strokeWidth="2"
-                                d="M4 6h16M4 12h8m-8 6h16" />
+                                d="M4 6h16M4 12h8m-8 6h16"
+                            />
                         </svg>
                     </div>
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                        <li><a>Item 1</a></li>
+                        <li><a>Home</a></li>
                         <li>
-                            <a>Parent</a>
+                            <a>Equipment</a>
                             <ul className="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
+                                <li><a>Add Equipment</a></li>
+                                <li><a>My Equipment</a></li>
                             </ul>
                         </li>
-                        <li><a>Item 3</a></li>
+                        <li><a>Store</a></li>
                     </ul>
                 </div>
                 <a className="btn btn-ghost text-xl">EquiSports</a>
@@ -41,13 +55,13 @@ const Navbar = () => {
                     <li><a>Home</a></li>
                     <li>
                         <details>
-                            <summary>Account</summary>
+                            <summary>Equipment</summary>
                             <ul>
                                 <li>
-                                    <Link to="/signin">Sign in</Link>
+                                    <Link to="">Add Equipment</Link>
                                 </li>
                                 <li>
-                                    <Link to="/signup">Sign up</Link>
+                                    <Link to="">My Equipment</Link>
                                 </li>
                             </ul>
                         </details>
@@ -55,8 +69,37 @@ const Navbar = () => {
                     <li><a>Store</a></li>
                 </ul>
             </div>
-            <div className="navbar-end">
-                <a className="btn">Button</a>
+            <div className="navbar-end gap-3">
+                {!user ? (
+                    <>
+                        <Link to="/signin">
+                            <button className="btn btn-sm text-sm">Sign in</button>
+                        </Link>
+                        <Link to="/signup">
+                            <button className="btn btn-sm text-sm">Sign up</button>
+                        </Link>
+                    </>
+                ) : (
+                    <div className="flex items-center gap-3">
+                        {user.photoURL && (
+                            <div className="tooltip tooltip-bottom" data-tip={user.displayName || "User"}>
+                                <img
+                                    src={user.photoURL}
+                                    alt={user.displayName || "User"}
+                                    className="h-10 w-10 rounded-full"
+                                />
+                            </div>
+                        )}
+                        
+                        <button
+                            className="btn btn-sm text-sm"
+                            onClick={handleLogout}
+                        >
+                            Log Out
+                        </button>
+                    </div>
+
+                )}
             </div>
         </div>
     );
