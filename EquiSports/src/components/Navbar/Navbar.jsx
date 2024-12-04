@@ -1,10 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/Authprovider";
-
+import { AiOutlineHome, AiOutlineShop, AiOutlineLogout, AiOutlineLogin } from "react-icons/ai";
+import { MdSportsSoccer, MdAdd, MdPerson } from "react-icons/md";
+import { AiOutlineUserAdd } from "react-icons/ai";
+import { BsMoon, BsSun } from "react-icons/bs";
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    const toggleTheme = () => {
+        setIsDarkMode(!isDarkMode);
+        const theme = !isDarkMode ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+    };
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem("theme") || "light";
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        setIsDarkMode(savedTheme === "dark");
+    }, []);
 
     const handleLogout = async () => {
         try {
@@ -16,7 +33,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-gradient-to-r from-red-500 to-red-700 text-white hover:from-red-600 hover:to-red-800 shadow-lg transform hover:transition mt-1 rounded-lg z-50 relative">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -25,7 +42,8 @@ const Navbar = () => {
                             className="h-5 w-5"
                             fill="none"
                             viewBox="0 0 24 24"
-                            stroke="currentColor">
+                            stroke="currentColor"
+                        >
                             <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -36,69 +54,135 @@ const Navbar = () => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                        <li><a>Home</a></li>
+                        className="menu menu-sm dropdown-content bg-white text-black rounded-box z-50 mt-3 w-52 p-2 shadow"
+                    >
                         <li>
-                            <a>Equipment</a>
-                            <ul className="p-2">
-                                <li><a>Add Equipment</a></li>
-                                <li><a>My Equipment</a></li>
+                            <Link to="/" className="hover:bg-red-200 rounded">
+                                <AiOutlineHome className="inline mr-2" />
+                                Home
+                            </Link>
+                        </li>
+                        <li tabIndex={0}>
+                            <a className="hover:bg-red-200 rounded">
+                                <MdSportsSoccer className="inline mr-2" />
+                                Equipment
+                            </a>
+                            <ul className="p-2 bg-white rounded shadow">
+                                <li>
+                                    <Link to="" className="hover:bg-red-200 rounded">
+                                        <MdAdd className="inline mr-2" />
+                                        Add Equipment
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="" className="hover:bg-red-200 rounded">
+                                        <MdPerson className="inline mr-2" />
+                                        My Equipment
+                                    </Link>
+                                </li>
                             </ul>
                         </li>
-                        <li><a>Store</a></li>
+                        <li>
+                            <Link to="" className="hover:bg-red-200 rounded">
+                                <AiOutlineShop className="inline mr-2" />
+                                Store
+                            </Link>
+                        </li>
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">EquiSports</a>
+                <Link to="/" className="text-xl">
+                    EquiSports
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                    <li><a>Home</a></li>
                     <li>
+                        <Link to="/" className="hover:bg-red-200 rounded">
+                            <AiOutlineHome className="inline mr-2" />
+                            Home
+                        </Link>
+                    </li>
+                    <li tabIndex={0}>
                         <details>
-                            <summary>Equipment</summary>
-                            <ul>
+                            <summary className="hover:bg-red-200 rounded">
+                                <MdSportsSoccer className="inline mr-2" />
+                                Equipment
+                            </summary>
+                            <ul className="p-2 bg-white text-black rounded shadow">
                                 <li>
-                                    <Link to="">Add Equipment</Link>
+                                    <Link to="" className="hover:bg-red-200 rounded">
+                                        <MdAdd className="inline mr-2" />
+                                        Add Equipment
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link to="">My Equipment</Link>
+                                    <Link to="" className="hover:bg-red-200 rounded">
+                                        <MdPerson className="inline mr-2" />
+                                        My Equipment
+                                    </Link>
                                 </li>
                             </ul>
                         </details>
                     </li>
-                    <li><a>Store</a></li>
+                    <li>
+                        <Link to="/store" className="hover:bg-red-200 rounded">
+                            <AiOutlineShop className="inline mr-2" />
+                            Store
+                        </Link>
+                    </li>
                 </ul>
             </div>
             <div className="navbar-end gap-3">
+                <button
+                    className="btn btn-xs text-xs lg:btn-sm lg:text-sm flex items-center gap-1"
+                    onClick={toggleTheme}
+                >
+                    {isDarkMode ? (
+                        <>
+                            <BsSun className="inline" />
+                            
+                        </>
+                    ) : (
+                        <>
+                            <BsMoon className="inline" />
+                            
+                        </>
+                    )}
+                </button>
                 {!user ? (
                     <>
                         <Link to="/signin">
-                            <button className="btn btn-sm text-sm">Sign in</button>
+                            <button className="btn btn-xs text-xs lg:btn-sm lg:text-sm flex items-center gap-1">
+                                <AiOutlineLogin className="inline" />
+                                Sign in
+                            </button>
                         </Link>
                         <Link to="/signup">
-                            <button className="btn btn-sm text-sm">Sign up</button>
+                            <button className="btn btn-xs text-xs lg:btn-sm lg:text-sm flex items-center gap-1">
+                                <AiOutlineUserAdd className="inline" />
+                                Sign up
+                            </button>
                         </Link>
                     </>
                 ) : (
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 lg:gap-3">
                         {user.photoURL && (
                             <div className="tooltip tooltip-bottom" data-tip={user.displayName || "User"}>
                                 <img
                                     src={user.photoURL}
                                     alt={user.displayName || "User"}
-                                    className="h-10 w-10 rounded-full"
+                                    className="h-8 w-8 lg:h-10 lg:w-10 rounded-full"
                                 />
                             </div>
                         )}
-                        
                         <button
-                            className="btn btn-sm text-sm"
+                            className="btn btn-xs text-xs lg:btn-sm lg:text-sm flex items-center gap-1"
                             onClick={handleLogout}
                         >
+                            <AiOutlineLogout />
                             Log Out
                         </button>
                     </div>
-
                 )}
             </div>
         </div>

@@ -14,6 +14,7 @@ import Home from './components/Home/Home.jsx';
 import Authprovider from './providers/Authprovider.jsx';
 
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,7 +33,8 @@ const router = createBrowserRouter([
       {
         path:"signup",
         element:<SignUp></SignUp>,
-      }
+      },
+     
     ]
   },
 ]);
