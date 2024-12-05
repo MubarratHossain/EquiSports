@@ -5,10 +5,19 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        bounceSlow: "bounceSlow 2s infinite",
+      },
+      keyframes: {
+        bounceSlow: {
+          '0%, 100%': { transform: 'translateY(-10%)' },
+          '50%': { transform: 'translateY(0)' },
+        },
+      },
+    },
   },
   plugins: [
     require('daisyui'),
   ],
-}
-
+};

@@ -9,6 +9,28 @@ import { BsMoon, BsSun } from "react-icons/bs";
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
     const [isDarkMode, setIsDarkMode] = useState(false);
+    const logos = [
+        "https://i.postimg.cc/3r6mhCw6/ball.png",
+        "https://i.postimg.cc/507VTSwN/ball2.jpg",
+        "https://i.postimg.cc/4dFDBNgY/ball3.png",
+      ];
+
+      const [currentLogo, setCurrentLogo] = useState(logos[0]);
+
+
+      useEffect(() => {
+        const logoInterval = setInterval(() => {
+          // Change logo every 2 seconds
+          setCurrentLogo((prevLogo) => {
+            const currentIndex = logos.indexOf(prevLogo);
+            const nextIndex = (currentIndex + 1) % logos.length;
+            return logos[nextIndex];
+          });
+        }, 2000);
+    
+        // Clean up the interval when the component unmounts
+        return () => clearInterval(logoInterval);
+      }, []);
 
     const toggleTheme = () => {
         setIsDarkMode(!isDarkMode);
@@ -90,7 +112,12 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </div>
-                <Link to="/" className="text-xl">
+                <Link to="/" className="text-xl flex items-center gap-2">
+                    <img
+                        src={currentLogo}
+                        alt="Sports Ball Logo"
+                        className="h-5 w-5 animate-bounceSlow"
+                    />
                     EquiSports
                 </Link>
             </div>
@@ -140,12 +167,12 @@ const Navbar = () => {
                     {isDarkMode ? (
                         <>
                             <BsSun className="inline" />
-                            
+
                         </>
                     ) : (
                         <>
                             <BsMoon className="inline" />
-                            
+
                         </>
                     )}
                 </button>
