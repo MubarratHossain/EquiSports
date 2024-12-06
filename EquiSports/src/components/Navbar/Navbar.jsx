@@ -20,7 +20,7 @@ const Navbar = () => {
 
       useEffect(() => {
         const logoInterval = setInterval(() => {
-          // Change logo every 2 seconds
+          
           setCurrentLogo((prevLogo) => {
             const currentIndex = logos.indexOf(prevLogo);
             const nextIndex = (currentIndex + 1) % logos.length;
@@ -28,7 +28,7 @@ const Navbar = () => {
           });
         }, 2000);
     
-        // Clean up the interval when the component unmounts
+        
         return () => clearInterval(logoInterval);
       }, []);
 
@@ -91,7 +91,7 @@ const Navbar = () => {
                             </a>
                             <ul className="p-2 bg-white rounded shadow">
                                 <li>
-                                    <Link to="" className="hover:bg-red-200 rounded">
+                                    <Link to="/addProduct" className="hover:bg-red-200 rounded">
                                         <MdAdd className="inline mr-2" />
                                         Add Equipment
                                     </Link>
@@ -105,7 +105,7 @@ const Navbar = () => {
                             </ul>
                         </li>
                         <li>
-                            <Link to="" className="hover:bg-red-200 rounded">
+                            <Link to="/store" className="hover:bg-red-200 rounded">
                                 <AiOutlineShop className="inline mr-2" />
                                 Store
                             </Link>
@@ -137,7 +137,7 @@ const Navbar = () => {
                             </summary>
                             <ul className="p-2 bg-white text-black rounded shadow">
                                 <li>
-                                    <Link to="" className="hover:bg-red-200 rounded">
+                                    <Link to="addProduct" className="hover:bg-red-200 rounded">
                                         <MdAdd className="inline mr-2" />
                                         Add Equipment
                                     </Link>
