@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom'; 
 import Swal from 'sweetalert2'; 
 import { FaDollarSign, FaStar, FaShippingFast, FaCogs, FaCartPlus, FaCheckCircle } from 'react-icons/fa';  
+import { AuthContext } from '../../providers/Authprovider'; 
 
 const StoreDetails = () => {
   const { id } = useParams(); 
   const [itemDetails, setItemDetails] = useState(null);
   const [error, setError] = useState('');
+  const { user } = useContext(AuthContext);  
+  
 
   useEffect(() => {
     const fetchItemDetails = async () => {
@@ -42,13 +45,65 @@ const StoreDetails = () => {
     return <div className="text-center text-lg text-yellow-400">Loading...</div>; 
   }
 
-  const handleBuyNow = () => {
-    Swal.fire({
-      icon: 'success',
-      title: 'Item Bought!',
-      text: `You have successfully purchased ${itemDetails.itemName}.`,
-      confirmButtonText: 'OK',
-    });
+  
+  const handleAddItem = async () => {
+    if (!user) {
+      
+      Swal.fire({
+        icon: 'warning',
+        title: 'Login Required',
+        text: 'You need to log in to add this item to your list.',
+        confirmButtonText: 'Go to Login',
+      }).then(() => {
+        
+      });
+      return;
+    }
+
+    
+    const itemData = {
+      equipmentItem: {
+        name: itemDetails.itemName,
+        category: itemDetails.categoryName,
+        description: itemDetails.description,
+        price: itemDetails.price,
+        image: itemDetails.image,
+        rating: itemDetails.rating,
+        stockStatus: itemDetails.stockStatus,
+        customization: itemDetails.customization,
+        processingTime: itemDetails.processingTime,
+      },
+      userId: user.id,  
+    };
+
+    try {
+      const response = await fetch('http://localhost:5000/my-items', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(itemData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Item Added!',
+          text: `You have successfully added ${itemDetails.itemName} to your list.`,
+          confirmButtonText: 'OK',
+        });
+      } else {
+        throw new Error(result.message || 'Failed to add item');
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `Failed to add item: ${error.message}`,
+      });
+    }
   };
 
   return (
@@ -99,7 +154,7 @@ const StoreDetails = () => {
 
           <div className="mt-8">
             <button
-              onClick={handleBuyNow}
+              onClick={handleAddItem}
               className="w-full md:w-auto bg-red-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-red-600 transition duration-300"
             >
               <FaCartPlus className="inline mr-2" /> Add Item

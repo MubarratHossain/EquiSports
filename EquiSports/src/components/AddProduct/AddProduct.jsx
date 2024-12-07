@@ -55,7 +55,8 @@ const AddProduct = () => {
           text: 'Your product was added successfully!',
           confirmButtonColor: '#3085d6',
         });
-        setProductData({
+        setProductData((prevState)=>({
+          ...prevState,
           image: '',
           itemName: '',
           categoryName: '',
@@ -65,9 +66,8 @@ const AddProduct = () => {
           customization: '',
           processingTime: '',
           stockStatus: '',
-          userEmail: '',
-          userName: '',
-        });
+          
+        }));
       } else {
         Swal.fire({
           icon: 'error',

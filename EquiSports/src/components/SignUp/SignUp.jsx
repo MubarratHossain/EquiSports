@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom"; 
-import Swal from "sweetalert2"; 
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/Authprovider";
 
 const SignUp = () => {
   const { createUser } = useContext(AuthContext);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -42,22 +42,47 @@ const SignUp = () => {
     setError("");
 
     try {
-      await createUser(email, password, name, photoURL); 
-
-      Swal.fire({
-        title: "Success!",
-        text: "Account created successfully. Redirecting to the Home page...",
-        icon: "success",
-        confirmButtonText: "OK",
-      }).then(() => {
-        navigate("/"); 
+      setLoading(true);
+    
+      
+      await createUser(email, password, name, photoURL);
+      
+      
+      const newUser = {
+        name,
+        email,
+      
+      };
+    
+      
+      const response = await fetch("http://localhost:5000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser), 
       });
+    
+      const data = await response.json();
+    
+      if (response.ok) {
+        Swal.fire({
+          title: "Success!",
+          text: "Account created successfully. Redirecting to the Home page...",
+          icon: "success",
+          confirmButtonText: "OK",
+        }).then(() => {
+          navigate("/");
+        });
+      } else {
+        setError(data.message || "Failed to save user to the database");
+      }
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  };
+  };    
 
   return (
     <div className="min-h-screen bg-base-200 flex items-center justify-center">

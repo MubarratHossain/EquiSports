@@ -97,7 +97,7 @@ const Navbar = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="" className="hover:bg-red-200 rounded">
+                                    <Link to="/myItems" className="hover:bg-red-200 rounded">
                                         <MdPerson className="inline mr-2" />
                                         My Equipment
                                     </Link>
@@ -143,7 +143,7 @@ const Navbar = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="" className="hover:bg-red-200 rounded">
+                                    <Link to="/myItems" className="hover:bg-red-200 rounded">
                                         <MdPerson className="inline mr-2" />
                                         My Equipment
                                     </Link>
