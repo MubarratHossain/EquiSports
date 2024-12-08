@@ -5,8 +5,8 @@ import 'swiper/swiper-bundle.css';
 import { Navigation, Pagination } from 'swiper/modules';
 
 import BannerImage1 from './sports.jpg'; 
-import BannerImage2 from './sports.jpg';
-import BannerImage3 from './sports.jpg'; 
+import BannerImage2 from './sports1.jpg';
+import BannerImage3 from './sports2.jpg'; 
 
 const Banner = () => {
   const location = useLocation();  
@@ -26,14 +26,14 @@ const Banner = () => {
       
       <SwiperSlide>
         <div
-          className="hero h-[60vh] md:h-[55vh] lg:h-[50vh] rounded-lg overflow-hidden p-4"
+          className="hero h-[60vh] md:h-[55vh] lg:h-[60vh] xl:h-[70vh] 2xl:h-[75vh] rounded-lg overflow-hidden p-4"
           style={{
             backgroundImage: `url(${BannerImage1})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: 'center center',
           }}
         >
-          <div className="hero-overlay  bg-opacity-50"></div>
+          <div className="hero-overlay bg-opacity-50"></div>
           <div className="hero-content text-neutral-content text-center">
             <div className="max-w-md px-4">
               <h1 className="mb-5 text-4xl text-white font-bold">Premium Sports Equipment</h1>
@@ -51,14 +51,14 @@ const Banner = () => {
       
       <SwiperSlide>
         <div
-          className="hero h-[60vh] md:h-[55vh] lg:h-[50vh] rounded-lg overflow-hidden p-4"
+          className="hero h-[60vh] md:h-[55vh] lg:h-[60vh] xl:h-[70vh] 2xl:h-[75vh] rounded-lg overflow-hidden p-4"
           style={{
             backgroundImage: `url(${BannerImage2})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: 'center center',
           }}
         >
-          <div className="hero-overlay  bg-opacity-50"></div>
+          <div className="hero-overlay bg-opacity-50"></div>
           <div className="hero-content text-neutral-content text-center">
             <div className="max-w-md px-4">
               <h1 className="mb-5 text-4xl text-white font-bold">Find Your Ideal Gear</h1>
@@ -76,14 +76,14 @@ const Banner = () => {
       
       <SwiperSlide>
         <div
-          className="hero h-[60vh] md:h-[55vh] lg:h-[50vh] rounded-lg overflow-hidden p-4"
+          className="hero h-[60vh] md:h-[55vh] lg:h-[60vh] xl:h-[70vh] 2xl:h-[75vh] rounded-lg overflow-hidden p-4"
           style={{
             backgroundImage: `url(${BannerImage3})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: 'center center',
           }}
         >
-          <div className="hero-overlay  bg-opacity-50"></div>
+          <div className="hero-overlay bg-opacity-50"></div>
           <div className="hero-content text-neutral-content text-center">
             <div className="max-w-md px-4">
               <h1 className="mb-5 text-4xl text-white font-bold">Gear Up for Success</h1>
