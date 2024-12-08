@@ -57,14 +57,14 @@ const Home = () => {
             </section>
 
            
-            <section className="about-us py-8 bg-gray-100 mt-5">
+            <section className="about-us py-8 mt-5">
                 <div className="container mx-auto text-center">
-                    <h2 className="text-3xl font-semibold text-gray-800 mb-4">Why Choose Us?</h2>
-                    <p className="text-lg text-gray-600 mb-6">
+                    <h2 className="text-3xl font-bold text-red-600 mb-4">Why Choose Us?</h2>
+                    <p className="text-lg font-semibold text-teal-500 mb-6">
                         We provide the best sports equipment and categories to ensure you have the highest quality experience.
                         Whether you're a professional or just getting started, we have something for everyone.
                     </p>
-                    <p className="text-lg text-gray-600">
+                    <p className="text-lg text-teal-500">
                         Our commitment to quality, customer service, and innovation makes us the perfect choice for sports enthusiasts!
                     </p>
                 </div>
@@ -72,8 +72,8 @@ const Home = () => {
 
            
             <section className="brands-section py-8 bg-white mb-4 rounded-lg max-w-[95%] mx-auto">
-                <div className="container mx-auto text-center">
-                    <h2 className="text-3xl font-semibold text-gray-800 mb-4">Our Brands</h2>
+                <div className="container mx-auto text-center bg-white rounded-lg">
+                    <h2 className="text-3xl font-semibold mb-4 animate-rgbCycle">Our Brands</h2>
                     <div className="brand-marquee">
                         <marquee behavior="scroll" direction="left" scrollamount="10">
                             <img src="https://i.postimg.cc/g24tL9Cr/nike-logo-black-clothes-design-icon-abstract-football-illustration-with-white-background-free-vector.jpg" alt="Brand 1" className="mx-4 h-12 inline-block" />

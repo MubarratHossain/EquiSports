@@ -28,6 +28,7 @@ const Store = () => {
     navigate(`/equipment-details/${id}`);
   };
 
+ 
   return (
     <div className="container mx-auto py-8">
       <h2 className="text-3xl font-semibold text-center mb-6">Equipment List</h2>
@@ -72,7 +73,7 @@ const Store = () => {
                   <td className="border border-gray-300 p-2 text-center">
                     <button
                       onClick={() => handleViewDetails(item._id)}
-                      className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                      className="px-3 py-1 bg-gradient-to-r from-red-500 to-red-700 text-white rounded "
                     >
                       View Details
                     </button>
