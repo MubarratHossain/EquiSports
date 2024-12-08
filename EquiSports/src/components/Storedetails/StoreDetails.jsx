@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'; 
+import { useNavigate, useParams } from 'react-router-dom'; 
 import Swal from 'sweetalert2'; 
 import { FaDollarSign, FaStar, FaShippingFast, FaCogs, FaCartPlus, FaCheckCircle } from 'react-icons/fa';  
 import { AuthContext } from '../../providers/Authprovider'; 
@@ -8,7 +8,8 @@ const StoreDetails = () => {
   const { id } = useParams(); 
   const [itemDetails, setItemDetails] = useState(null);
   const [error, setError] = useState('');
-  const { user } = useContext(AuthContext);  
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();  
   
 
   useEffect(() => {
@@ -93,6 +94,9 @@ const StoreDetails = () => {
           title: 'Item Added!',
           text: `You have successfully added ${itemDetails.itemName} to your list.`,
           confirmButtonText: 'OK',
+        }).then(() => {
+         
+          navigate('/myItems');
         });
       } else {
         throw new Error(result.message || 'Failed to add item');
