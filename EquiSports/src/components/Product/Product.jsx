@@ -8,7 +8,7 @@ const Product = () => {
     useEffect(() => {
         
         setTimeout(() => {
-            fetch('http://localhost:5000/products')
+            fetch('https://equi-sports-server-side-eight.vercel.app/products')
                 .then(response => response.json())
                 .then(data => {
                     setProducts(data);
@@ -23,7 +23,7 @@ const Product = () => {
 
     return (
         <div className="container mx-auto p-4">
-            <h2 className="text-3xl font-bold text-center mb-6">Our Products</h2>
+            <h2 className="text-3xl font-bold text-center mb-6 text-red-600">Our Products</h2>
             
             
             {loading ? (
@@ -33,7 +33,8 @@ const Product = () => {
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {products.map(product => (
-                        <div key={product._id} className="bg-gray-300 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+                        <div key={product._id} className="bg-gradient-to-b from-gray-300 via-gray-200 to-gray-100 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+
                             <img 
                                 src={product.img} 
                                 alt={product.name} 

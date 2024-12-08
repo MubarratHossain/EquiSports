@@ -18,7 +18,7 @@ const Home = () => {
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false); 
-        }, 1000);
+        }, 5000);
         
         const interval = setInterval(() => {
             setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);

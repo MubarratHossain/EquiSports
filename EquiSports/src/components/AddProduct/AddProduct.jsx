@@ -39,7 +39,7 @@ const AddProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/add_equipments', {
+      const response = await fetch('https://equi-sports-server-side-eight.vercel.app/add_equipments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

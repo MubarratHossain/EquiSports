@@ -14,7 +14,7 @@ const UpdateProduct = () => {
   useEffect(() => {
     const fetchItemDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/my-items/${itemId}`);
+        const response = await fetch(`https://equi-sports-server-side-eight.vercel.app/my-items/${itemId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch item details");
         }
@@ -32,7 +32,7 @@ const UpdateProduct = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:5000/my-items/${itemId}`, {
+      const response = await fetch(`https://equi-sports-server-side-eight.vercel.app/my-items/${itemId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(itemData),

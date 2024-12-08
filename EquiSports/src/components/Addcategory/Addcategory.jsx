@@ -7,7 +7,7 @@ const Addcategory = () => {
     useEffect(() => {
         
         setTimeout(() => {
-            fetch('http://localhost:5000/categories')
+            fetch('https://equi-sports-server-side-eight.vercel.app/categories')
                 .then((response) => response.json())
                 .then((data) => {
                     setCategories(data);
@@ -17,12 +17,12 @@ const Addcategory = () => {
                     console.error('Error fetching categories:', error);
                     setLoading(false); 
                 });
-        }, 1000); 
+        }, 3000); 
     }, []);
 
     return (
         <div className="container mx-auto p-4">
-            <h2 className="text-3xl font-bold text-center mb-6">Sports Categories</h2>
+            <h2 className="text-3xl font-bold text-center mb-6 text-red-600">Sports Categories</h2>
             
             
             {loading ? (
@@ -34,7 +34,7 @@ const Addcategory = () => {
                     {categories.map((category) => (
                         <div
                             key={category._id}
-                            className="bg-gray-300 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out"
+                            className="bg-gradient-to-b from-gray-300 via-gray-200 to-gray-100  p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out"
                         >
                             <img
                                 src={category.imageUrl}

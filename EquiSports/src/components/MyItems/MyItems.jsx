@@ -11,7 +11,7 @@ const MyItems = () => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await fetch('http://localhost:5000/my-items');
+        const response = await fetch('https://equi-sports-server-side-eight.vercel.app/my-items');
 
         if (!response.ok) {
           setError('Failed to fetch items');
@@ -30,7 +30,7 @@ const MyItems = () => {
 
   const handleDelete = async (itemId) => {
     try {
-      const response = await fetch(`http://localhost:5000/my-items/${itemId}`, {
+      const response = await fetch(`https://equi-sports-server-side-eight.vercel.app/my-items/${itemId}`, {
         method: 'DELETE',
       });
 

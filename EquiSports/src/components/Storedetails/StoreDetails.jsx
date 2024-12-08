@@ -14,7 +14,7 @@ const StoreDetails = () => {
   useEffect(() => {
     const fetchItemDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/add_equipments/${id}`);
+        const response = await fetch(`https://equi-sports-server-side-eight.vercel.app/add_equipments/${id}`);
         
         if (!response.ok) {
           if (response.status === 404) {
@@ -77,7 +77,7 @@ const StoreDetails = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/my-items', {
+      const response = await fetch('https://equi-sports-server-side-eight.vercel.app/my-items', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

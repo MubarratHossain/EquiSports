@@ -11,8 +11,8 @@ const Navbar = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const logos = [
         "https://i.postimg.cc/3r6mhCw6/ball.png",
-        "https://i.postimg.cc/507VTSwN/ball2.jpg",
-        "https://i.postimg.cc/4dFDBNgY/ball3.png",
+        "https://i.ibb.co.com/gWTBvgr/8193268.png",
+        "https://i.ibb.co.com/3STszST/sports-logo-C3-C4-FD95-D9-seeklogo-com.png",
       ];
 
       const [currentLogo, setCurrentLogo] = useState(logos[0]);
