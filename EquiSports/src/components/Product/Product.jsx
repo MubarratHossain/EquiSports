@@ -3,29 +3,29 @@ import { FaStar, FaEye } from 'react-icons/fa';
 
 const Product = () => {
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true); // State to track loading status
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
-        // Simulate a 3-second delay before fetching the data
+        
         setTimeout(() => {
             fetch('http://localhost:5000/products')
                 .then(response => response.json())
                 .then(data => {
                     setProducts(data);
-                    setLoading(false); // Set loading to false once data is fetched
+                    setLoading(false); 
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
-                    setLoading(false); // Set loading to false if there's an error
+                    setLoading(false); 
                 });
-        }, 3000); // 3-second delay
+        }, 1000); 
     }, []);
 
     return (
         <div className="container mx-auto p-4">
             <h2 className="text-3xl font-bold text-center mb-6">Our Products</h2>
             
-            {/* Show the loading spinner if data is still being fetched */}
+            
             {loading ? (
                 <div className="flex justify-center items-center">
                     <span className="loading loading-spinner text-error"></span>

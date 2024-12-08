@@ -5,7 +5,7 @@ import Product from "../Product/Product";
 
 const Home = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [isLoading, setIsLoading] = useState(true); // Loading state
+    const [isLoading, setIsLoading] = useState(true); 
 
     const images = [
         'https://i.postimg.cc/T25Q95DV/istockphoto-1056257342-612x612.jpg', 
@@ -14,11 +14,11 @@ const Home = () => {
         'https://i.postimg.cc/c1c7T7J8/istockphoto-521686491-612x612.jpg'
     ];
 
-    // Simulate data loading (e.g., fetching images)
+    
     useEffect(() => {
         setTimeout(() => {
-            setIsLoading(false); // Set loading to false after 3 seconds (simulating data fetch)
-        }, 3000);
+            setIsLoading(false); 
+        }, 1000);
         
         const interval = setInterval(() => {
             setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);

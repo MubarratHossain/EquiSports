@@ -17,7 +17,7 @@ const Addcategory = () => {
                     console.error('Error fetching categories:', error);
                     setLoading(false); 
                 });
-        }, 3000); 
+        }, 1000); 
     }, []);
 
     return (
