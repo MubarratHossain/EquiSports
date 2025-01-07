@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/Authprovider";
-import { AiOutlineHome, AiOutlineShop, AiOutlineLogout, AiOutlineLogin } from "react-icons/ai";
+import { AiOutlineHome, AiOutlineShop, AiOutlineLogout, AiOutlineLogin, AiOutlineMail } from "react-icons/ai";
 import { MdSportsSoccer, MdAdd, MdPerson } from "react-icons/md";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { BsMoon, BsSun } from "react-icons/bs";
@@ -13,24 +13,21 @@ const Navbar = () => {
         "https://i.postimg.cc/3r6mhCw6/ball.png",
         "https://i.ibb.co.com/gWTBvgr/8193268.png",
         "https://i.ibb.co.com/3STszST/sports-logo-C3-C4-FD95-D9-seeklogo-com.png",
-      ];
+    ];
 
-      const [currentLogo, setCurrentLogo] = useState(logos[0]);
+    const [currentLogo, setCurrentLogo] = useState(logos[0]);
 
-
-      useEffect(() => {
+    useEffect(() => {
         const logoInterval = setInterval(() => {
-          
-          setCurrentLogo((prevLogo) => {
-            const currentIndex = logos.indexOf(prevLogo);
-            const nextIndex = (currentIndex + 1) % logos.length;
-            return logos[nextIndex];
-          });
+            setCurrentLogo((prevLogo) => {
+                const currentIndex = logos.indexOf(prevLogo);
+                const nextIndex = (currentIndex + 1) % logos.length;
+                return logos[nextIndex];
+            });
         }, 2000);
-    
-        
+
         return () => clearInterval(logoInterval);
-      }, []);
+    }, []);
 
     const toggleTheme = () => {
         setIsDarkMode(!isDarkMode);
@@ -55,10 +52,10 @@ const Navbar = () => {
     };
 
     return (
-        <div className="navbar bg-gradient-to-r from-red-500 to-red-700 text-white hover:from-red-600 hover:to-red-800 shadow-lg transform hover:transition mt-1 rounded-lg z-50 relative">
+        <div className="navbar sticky top-0 bg-gradient-to-r from-red-500 to-red-700 text-white hover:from-red-600 hover:to-red-800 shadow-lg transform hover:transition rounded-sm z-50">
             <div className="navbar-start">
                 <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                    <div tabIndex={0} role="button" className="lg:hidden">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-5 w-5"
@@ -110,19 +107,31 @@ const Navbar = () => {
                                 Store
                             </Link>
                         </li>
+                        <li>
+                            <Link to="/contact" className="hover:bg-red-200 rounded">
+                                <AiOutlineMail className="inline mr-2" />
+                                Contact
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/aboutUs" className="hover:bg-red-200 rounded">
+                                <AiOutlineShop className="inline mr-2" />
+                                About Us
+                            </Link>
+                        </li>
                     </ul>
                 </div>
-                <Link to="/" className="text-xl flex items-center gap-2">
+                <Link to="/" className="text-[13px] lg:text-xl flex items-center gap-2 ml-2">
                     <img
                         src={currentLogo}
                         alt="Sports Ball Logo"
-                        className="h-5 w-5 animate-bounceSlow"
+                        className="h-4 w-4 lg:h-5 lg:w-5 md:h-5 md:w-5 animate-bounceSlow"
                     />
                     EquiSports
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
+                <ul className="menu menu-horizontal px-1 mr-2">
                     <li>
                         <Link to="/" className="hover:bg-red-200 rounded">
                             <AiOutlineHome className="inline mr-2" />
@@ -137,7 +146,7 @@ const Navbar = () => {
                             </summary>
                             <ul className="p-2 bg-white text-black rounded shadow">
                                 <li>
-                                    <Link to="addProduct" className="hover:bg-red-200 rounded">
+                                    <Link to="/addProduct" className="hover:bg-red-200 rounded">
                                         <MdAdd className="inline mr-2" />
                                         Add Equipment
                                     </Link>
@@ -157,39 +166,55 @@ const Navbar = () => {
                             Store
                         </Link>
                     </li>
+                    <li>
+                        <Link to="/contact" className="hover:bg-red-200 rounded">
+                            <AiOutlineMail className="inline mr-2" />
+                            Contact
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/aboutUs" className="hover:bg-red-200 rounded">
+                            <AiOutlineShop className="inline mr-2" />
+                            About Us
+                        </Link>
+                    </li>
                 </ul>
             </div>
-            <div className="navbar-end gap-3">
+            <div className="navbar-end gap-1">
                 <button
-                    className="btn btn-xs text-xs lg:btn-sm lg:text-sm flex items-center gap-1"
+                    className="btn btn-xs text-xs lg:btn-xs lg:text-xs flex items-center gap-1"
                     onClick={toggleTheme}
                 >
                     {isDarkMode ? (
                         <>
                             <BsSun className="inline" />
-
                         </>
                     ) : (
                         <>
                             <BsMoon className="inline" />
-
                         </>
                     )}
                 </button>
                 {!user ? (
                     <>
-                        <Link to="/signin">
-                            <button className="btn btn-xs text-xs lg:btn-sm lg:text-sm flex items-center gap-1">
-                                <AiOutlineLogin className="inline" />
-                                Sign in
-                            </button>
-                        </Link>
-                        <Link to="/signup">
-                            <button className="btn btn-xs text-xs lg:btn-sm lg:text-sm flex items-center gap-1">
-                                <AiOutlineUserAdd className="inline" />
-                                Sign up
-                            </button>
-                        </Link>
+                        <div className="flex flex-row gap-2">
+                            <Link to="/signin">
+                                <div className="flex flex-row">
+                                    <button className="border-2 px-1 md:btn md:btn-xs lg:btn text-[10px] rounded-xl lg:btn-sm lg:text-sm flex items-center gap-1">
+                                        <AiOutlineLogin className="inline text-xl" />
+                                        Sign in
+                                    </button>
+                                </div>
+                            </Link>
+                            <Link to="/signup">
+                                <div className="flex flex-row">
+                                    <button className="border-2 px-1 md:btn md:btn-xs text-[10px] lg:btn-sm rounded-xl lg:text-sm flex items-center gap-1">
+                                        <AiOutlineUserAdd className="inline text-xl" />
+                                        Sign up
+                                    </button>
+                                </div>
+                            </Link>
+                        </div>
                     </>
                 ) : (
                     <div className="flex items-center gap-2 lg:gap-3">

@@ -1,116 +1,90 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Swal from 'sweetalert2';
-import { FaEdit, FaTrashAlt } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
 
 const MyItems = () => {
-  const [items, setItems] = useState([]);
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const [myItems, setMyItems] = useState([]);
 
+  // Fetch items from /my-items API
   useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const response = await fetch('https://equi-sports-server-side-eight.vercel.app/my-items');
-
-        if (!response.ok) {
-          setError('Failed to fetch items');
-          return;
-        }
-
-        const data = await response.json();
-        setItems(data);
-      } catch (err) {
-        setError(`Error fetching items: ${err.message}`);
-      }
-    };
-
     fetchItems();
   }, []);
 
-  const handleDelete = async (itemId) => {
+  const fetchItems = async () => {
     try {
-      const response = await fetch(`https://equi-sports-server-side-eight.vercel.app/my-items/${itemId}`, {
-        method: 'DELETE',
-      });
-
-      if (response.ok) {
-        setItems((prevItems) => prevItems.filter((item) => item._id !== itemId));
-        Swal.fire({
-          icon: 'success',
-          title: 'Deleted!',
-          text: 'Item has been deleted successfully.',
-        });
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Failed to delete the item.',
-        });
-      }
-    } catch (err) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: `Error deleting item: ${err.message}`,
-      });
+      const response = await axios.get('https://equi-sports-server-side-eight.vercel.app/my-items');
+      setMyItems(response.data);
+    } catch (error) {
+      console.error('Error fetching items:', error);
     }
   };
 
-  const handleUpdate = (itemId) => {
-    navigate(`/update/${itemId}`);
+  // Handle Buy Button click (only show SweetAlert)
+  const handleBuy = (item) => {
+    // Trigger SweetAlert success notification
+    Swal.fire({
+      icon: 'success',
+      title: 'Buy Successful!',
+      text: `You bought one ${item.equipmentItem.name}.`,
+      confirmButtonText: 'OK',
+    });
   };
 
-  if (error) {
-    return <div className="text-center text-red-500">{error}</div>;
-  }
+  // Handle Delete Button click (remove item from backend and locally)
+  const handleDelete = async (itemId) => {
+    try {
+      // Send DELETE request to backend
+      await axios.delete(`https://equi-sports-server-side-eight.vercel.app/my-items/${itemId}`);
+      // Remove the item locally after successful deletion
+      setMyItems((prevItems) => prevItems.filter(item => item._id !== itemId));
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
+  };
 
   return (
-    <div className="container mx-auto py-8">
-      <h2 className="text-4xl font-semibold text-center mb-8 animate-rgbCycle">My Items</h2>
-
-      <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {items.length === 0 ? (
-          <div className="col-span-full text-center text-xl text-gray-500">No items found</div>
-        ) : (
-          items.map((item) => (
-            <div
-              key={item._id}
-              className="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105 flex flex-col justify-between"
-            >
-              <img
-                src={item.equipmentItem.image}
-                alt={item.equipmentItem.name}
-                className="w-full h-48 object-contain mb-4 rounded-lg"
-              />
-              <h3 className="text-2xl font-semibold text-red-600">{item.equipmentItem.name}</h3>
-              <p className="text-lg text-teal-500 mt-2">{item.equipmentItem.category}</p>
-
-              <div className="flex justify-between items-center mt-4">
-                <span className="text-xl font-semibold text-gray-700">${item.equipmentItem.price}</span>
-                <span className="text-md text-yellow-500">{item.equipmentItem.rating} ★</span>
-              </div>
-
-              <div className="flex justify-between items-center mt-6">
-                <button
-                  onClick={() => handleUpdate(item._id)}
-                  className="bg-yellow-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-yellow-600 flex items-center"
-                >
-                  <FaEdit className="mr-2" />
-                  Update
-                </button>
-                <button
-                  onClick={() => handleDelete(item._id)}
-                  className="bg-red-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-red-600 flex items-center"
-                >
-                  <FaTrashAlt className="mr-2" />
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+    <div className="max-w-6xl mx-auto p-4">
+      <h1 className="text-xl font-semibold mb-4">My Items</h1>
+      <table className="w-full table-auto border-collapse text-sm">
+        <thead>
+          <tr>
+            <th className="border px-2 py-1 text-left">Image</th>
+            <th className="border px-2 py-1 text-left">Price</th>
+            <th className="border px-2 py-1 text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {myItems.map(item => (
+            <tr key={item._id}>
+              <td className="border px-2 py-1">
+                <img
+                  className="w-12 h-12 object-cover rounded-md"
+                  src={item.equipmentItem.image}
+                  alt={item.equipmentItem.name}
+                />
+              </td>
+              <td className="border px-2 py-1 text-sm">{item.equipmentItem.price} BDT</td>
+              <td className="border px-2 py-1">
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => handleBuy(item)}
+                    className="bg-green-500 text-white px-3 py-1 rounded-md shadow-md hover:bg-green-600 transition text-xs"
+                    disabled={item.equipmentItem.stockStatus === 0}
+                  >
+                    {item.equipmentItem.stockStatus === 0 ? 'Out of Stock' : 'Buy'}
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    className="bg-red-500 text-white px-2 py-1 rounded-md shadow-md hover:bg-red-600 transition text-xs"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

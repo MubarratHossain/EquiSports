@@ -19,6 +19,9 @@ import StoreDetails from './components/Storedetails/StoreDetails.jsx';
 import MyItems from './components/MyItems/MyItems.jsx';
 import UpdateProduct from './components/Updateproduct/UpdateProduct.jsx';
 import ErrorPage from './components/Errorpage/Errorpage.jsx';
+import Contact from './components/Contact/Contact.jsx';
+import AboutUs from './components/Aboutus/Aboutus.jsx';
+import Connect from './components/Connect/Connect.jsx';
 
 
 
@@ -61,7 +64,20 @@ const router = createBrowserRouter([
       {
         path:"/update/:itemId",
         element:<PrivateRoute><UpdateProduct></UpdateProduct></PrivateRoute>,
-      }, {
+      },
+      {
+        path:"/contact",
+        element:<Contact></Contact>,
+      },
+      {
+        path:"/aboutUs",
+        element:<AboutUs></AboutUs>,
+      },
+      {
+        path:"/connect",
+        element:<Connect></Connect>,
+      },
+      {
         path: "*", 
         element: <ErrorPage></ErrorPage>,
       },
