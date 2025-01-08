@@ -1,7 +1,7 @@
 # EquiSports
 
 ## Live Website Link
-[🌐 Visit EquiSports](https://historical-elbow.surge.sh/)
+[🌐 Visit EquiSports](https://beautiful-centaur-0e11ac.netlify.app/)
 
 ## Requirement Document
 [📄 View Requirement Document](https://docs.google.com/document/d/1zl97jEDUtdadOGwHSV_fP1gShCwCxwk6DDhQbEpcfHY/edit?tab=t.0)
@@ -35,6 +35,6 @@ To run this project locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   https://github.com/programming-hero-web-course2/b10-a10-client-side-MubarratHossain
+   https://github.com/MubarratHossain/EquiSports.git
 
 
