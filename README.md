@@ -35,6 +35,6 @@ To run this project locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   https://github.com/programming-hero-web-course2/b10-a10-client-side-MubarratHossain
+   https://github.com/MubarratHossain/EquiSports.git
 
 
